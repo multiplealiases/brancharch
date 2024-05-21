@@ -1,6 +1,5 @@
 use rand::prelude::*;
 use crate::opcode::OpCode;
-use std::fmt;
 const MEMORY_SIZE: usize = 64 * (1 << 10);
 
 pub struct Machine {
@@ -8,16 +7,6 @@ pub struct Machine {
     ip: u16,
     memory: [u8; MEMORY_SIZE],
     flag: bool,
-}
-
-impl fmt::Debug for Machine {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Machine")
-         .field("regs", &self.regs)
-         .field("ip", &self.ip)
-         .field("flag", &self.flag)
-         .finish()
-    }
 }
 
 impl Machine {
@@ -32,7 +21,7 @@ impl Machine {
     pub fn new_random() -> Machine {
         let mut rng = rand::thread_rng();
         let mut machine = Self::new();
-        machine.memory.iter_mut().for_each(|i| *i = rng.gen());
+        machine.memory.iter_mut().for_each(|i| *i = rng.gen_range(0..60));
         machine
     }
     pub fn fetch_inst(&mut self) -> OpCode {
@@ -42,16 +31,27 @@ impl Machine {
     }
     pub fn fetch_one(&mut self) -> u8 {
         let byte = self.memory[self.ip as usize];
+        print!("fetched {} ", byte);
         self.advance();
         byte
     }
     pub fn fetch_two(&mut self) -> u16 {
-        let lower = self.fetch_one();
-        let upper = self.fetch_one();
-        u16::from_le_bytes([lower, upper])
+        let lower = self.memory[self.ip as usize];
+        self.advance();
+        let upper = self.memory[self.ip as usize];
+        self.advance();
+        let value = u16::from_le_bytes([lower, upper]);
+        print!("fetched {}", value);
+        value
     }
     pub fn ip(&self) -> u16 {
         self.ip
+    }
+    pub fn regs(&self) -> [u8; 4] {
+        self.regs
+    }
+    pub fn flag(&self) -> bool {
+        self.flag
     }
     pub fn advance(&mut self) {
         self.ip = self.ip.wrapping_add(1);

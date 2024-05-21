@@ -69,6 +69,7 @@ impl From<u8> for OpCode {
 }
 
 #[repr(u8)]
+#[derive(Debug)]
 pub enum OpCode {
     Nop,
 

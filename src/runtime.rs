@@ -15,12 +15,15 @@ pub trait Runtime {
 impl Runtime for Machine {
     fn run(&mut self) {
         loop {
-            println!("{:?}", self);
-            self.step()
+            print!("regs: {:?}, ip: {}, flag: {}, ", self.regs(), self.ip(), self.flag());
+            self.step();
+            println!("");
         }
     }
     fn step(&mut self) {
-        match self.fetch_inst() {
+        let inst = self.fetch_inst();
+        print!("inst: {:?} ", inst);
+        match inst {
             OpCode::Nop => {},
             OpCode::LoadA => {
                 let address = self.fetch_two();
