@@ -7,6 +7,7 @@ pub struct Machine {
     ip: u16,
     memory: [u8; MEMORY_SIZE],
     flag: bool,
+    pub halt: bool,
 }
 
 impl Machine {
@@ -16,12 +17,13 @@ impl Machine {
             ip: 0,
             memory: [0u8; MEMORY_SIZE],
             flag: false,
+            halt: false,
         }
     }
     pub fn new_random() -> Machine {
         let mut rng = rand::thread_rng();
         let mut machine = Self::new();
-        machine.memory.iter_mut().for_each(|i| *i = rng.gen_range(0..60));
+        machine.memory.iter_mut().for_each(|i| *i = rng.gen());
         machine
     }
     pub fn fetch_inst(&mut self) -> OpCode {
@@ -117,5 +119,8 @@ impl Machine {
         if self.regs[reg] > self.memory[address as usize] {
             self.flag_set()
         }
+    }
+    pub fn halt(&mut self) {
+        self.halt = true;
     }
 }

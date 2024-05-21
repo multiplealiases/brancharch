@@ -14,7 +14,7 @@ pub trait Runtime {
 
 impl Runtime for Machine {
     fn run(&mut self) {
-        loop {
+        while !self.halt {
             #[cfg(feature = "debug-trace-execution")]
             print!("regs: {:?}, ip: {}, flag: {}, ", self.regs(), self.ip(), self.flag());
             self.step();
@@ -212,6 +212,15 @@ impl Runtime for Machine {
             OpCode::EqualToD => {
                 let address = self.fetch_two();
                 self.equal_to(REG_D, address)                
+            }
+            OpCode::AttemptHalt => {
+                let a = self.peek_reg(REG_A) == 0xFF;
+                let b = self.peek_reg(REG_B) == 0xFF;
+                let c = self.peek_reg(REG_C) == 0xFF;
+                let d = self.peek_reg(REG_D) == 0xFF;
+                if a & b & c & d & self.flag() {
+                    self.halt()
+                }
             }
         }
     }
