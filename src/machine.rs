@@ -1,4 +1,5 @@
 use rand::prelude::*;
+use crate::opcode::OpCode;
 const MEMORY_SIZE: usize = 64 * (1 << 10);
 pub struct Machine {
     regs: [u8; 4],
@@ -22,10 +23,23 @@ impl Machine {
         machine.memory.iter_mut().for_each(|i| *i = rng.gen());
         machine
     }
-    pub fn fetch_inst(&mut self) -> u8 {
+    pub fn fetch_inst(&mut self) -> OpCode {
         let inst = self.memory[self.ip as usize];
         self.advance();
-        inst
+        OpCode::from(inst)
+    }
+    pub fn fetch_one(&mut self) -> u8 {
+        let byte = self.memory[self.ip as usize];
+        self.advance();
+        byte
+    }
+    pub fn fetch_two(&mut self) -> u16 {
+        let lower = self.fetch_one();
+        let upper = self.fetch_one();
+        u16::from_le_bytes([lower, upper])
+    }
+    pub fn ip(&self) -> u16 {
+        self.ip
     }
     pub fn advance(&mut self) {
         self.ip = self.ip.wrapping_add(1);
@@ -39,8 +53,8 @@ impl Machine {
     pub fn jump(&mut self, address: u16) {
         self.ip = address;
     }
-    pub fn peek_mem(&self, ahead: u16) -> u8 {
-        self.memory[self.ip.wrapping_add(ahead) as usize]
+    pub fn peek_mem(&self, at: u16) -> u8 {
+        self.memory[at as usize]
     }
     pub fn peek_reg(&self, reg: usize) -> u8 {
         self.regs[reg]
@@ -69,7 +83,7 @@ impl Machine {
     pub fn flag_clear(&mut self) {
         self.flag = false;
     }
-    pub fn branch_if(&mut self, displacement: u8) {
+    pub fn branch(&mut self, displacement: u8) {
         if self.flag {
             self.flag_clear();
             self.advance_by(displacement as u16);

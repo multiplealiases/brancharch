@@ -1,5 +1,3 @@
-use crate::machine::Machine;
-
 impl From<u8> for OpCode {
     fn from(byte: u8) -> OpCode {
         match byte {
