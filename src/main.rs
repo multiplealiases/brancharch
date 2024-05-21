@@ -1,3 +1,10 @@
+mod machine;
+mod opcode;
+mod runtime;
+
+use crate::machine::Machine;
+use crate::runtime::Runtime;
 fn main() {
-    println!("Hello, world!");
+    Machine::run_random()
 }
+
