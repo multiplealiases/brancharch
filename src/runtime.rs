@@ -15,13 +15,16 @@ pub trait Runtime {
 impl Runtime for Machine {
     fn run(&mut self) {
         loop {
+            #[cfg(feature = "debug-trace-execution")]
             print!("regs: {:?}, ip: {}, flag: {}, ", self.regs(), self.ip(), self.flag());
             self.step();
+            #[cfg(feature = "debug-trace-execution")]
             println!("");
         }
     }
     fn step(&mut self) {
         let inst = self.fetch_inst();
+        #[cfg(feature = "debug-trace-execution")]
         print!("inst: {:?} ", inst);
         match inst {
             OpCode::Nop => {},

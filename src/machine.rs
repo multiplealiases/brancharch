@@ -31,6 +31,7 @@ impl Machine {
     }
     pub fn fetch_one(&mut self) -> u8 {
         let byte = self.memory[self.ip as usize];
+        #[cfg(feature = "debug-trace-execution")]
         print!("fetched {} ", byte);
         self.advance();
         byte
@@ -41,6 +42,7 @@ impl Machine {
         let upper = self.memory[self.ip as usize];
         self.advance();
         let value = u16::from_le_bytes([lower, upper]);
+        #[cfg(feature = "debug-trace-execution")]
         print!("fetched {}", value);
         value
     }
