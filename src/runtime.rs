@@ -15,7 +15,7 @@ pub trait Runtime {
 impl Runtime for Machine {
     fn run(&mut self) {
         loop {
-            println!("ip: {}", self.ip());
+            println!("{:?}", self);
             self.step()
         }
     }

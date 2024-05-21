@@ -1,11 +1,23 @@
 use rand::prelude::*;
 use crate::opcode::OpCode;
+use std::fmt;
 const MEMORY_SIZE: usize = 64 * (1 << 10);
+
 pub struct Machine {
     regs: [u8; 4],
     ip: u16,
     memory: [u8; MEMORY_SIZE],
     flag: bool,
+}
+
+impl fmt::Debug for Machine {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Machine")
+         .field("regs", &self.regs)
+         .field("ip", &self.ip)
+         .field("flag", &self.flag)
+         .finish()
+    }
 }
 
 impl Machine {
