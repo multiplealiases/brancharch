@@ -222,6 +222,11 @@ impl Runtime for Machine {
                     self.halt()
                 }
             }
+            OpCode::Print => {
+                let address = self.fetch_two();
+                self.print_byte(address);
+            }
+
         }
     }
     fn run_random() {

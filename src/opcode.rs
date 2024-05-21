@@ -63,6 +63,7 @@ impl From<u8> for OpCode {
             51 => OpCode::GreaterThanD,
             52 => OpCode::EqualToD,            
 
+            53 => OpCode::Print,
             0xFF => OpCode::AttemptHalt,
             _ => OpCode::Nop
         }
@@ -98,6 +99,8 @@ pub enum OpCode {
     LessThanB, GreaterThanB, EqualToB,
     LessThanC, GreaterThanC, EqualToC,
     LessThanD, GreaterThanD, EqualToD,
+
+    Print,
 
     AttemptHalt = 0xFF,
 }

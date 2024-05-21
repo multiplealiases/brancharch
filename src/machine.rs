@@ -1,4 +1,6 @@
 use rand::prelude::*;
+use std::io;
+use std::io::Write;
 use crate::opcode::OpCode;
 const MEMORY_SIZE: usize = 64 * (1 << 10);
 
@@ -119,6 +121,10 @@ impl Machine {
         if self.regs[reg] > self.memory[address as usize] {
             self.flag_set()
         }
+    }
+    pub fn print_byte(&self, address: u16) {
+        let byte: [u8; 1] = [self.memory[address as usize]];
+        io::stdout().write(&byte);
     }
     pub fn halt(&mut self) {
         self.halt = true;
