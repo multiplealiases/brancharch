@@ -95,6 +95,15 @@ impl Machine {
     pub fn sub(&mut self, acc: usize, rhs: usize) {
         self.regs[acc] = self.regs[acc].wrapping_sub(self.regs[rhs]);
     }
+    pub fn and(&mut self, acc: usize, rhs: usize) {
+        self.regs[acc] &= self.regs[rhs];
+    }
+    pub fn or(&mut self, acc: usize, rhs: usize) {
+        self.regs[acc] |= self.regs[rhs];
+    }
+    pub fn xor(&mut self, acc: usize, rhs: usize) {
+        self.regs[acc] ^= self.regs[rhs];
+    }
     pub fn flag_set(&mut self) {
         self.flag = true;
     }

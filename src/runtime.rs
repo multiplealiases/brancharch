@@ -213,6 +213,127 @@ impl Runtime for Machine {
                 let address = self.fetch_two();
                 self.equal_to(REG_D, address)                
             }
+
+            OpCode::AndAA => {
+                self.and(REG_A, REG_A);
+            }
+            OpCode::AndBA => {
+                self.and(REG_B, REG_A);
+            }
+            OpCode::AndCA => {
+                self.and(REG_C, REG_A);
+            }
+            OpCode::AndDA => {
+                self.and(REG_D, REG_A);
+            }
+            OpCode::AndBB => {
+                self.and(REG_B, REG_B);
+            }
+            OpCode::AndBC => {
+                self.and(REG_B, REG_C);
+            }
+            OpCode::AndBD => {
+                self.and(REG_B, REG_D);
+            }
+            OpCode::AndCB => {
+                self.and(REG_C, REG_B);
+            }
+            OpCode::AndCC => {
+                self.and(REG_C, REG_C);
+            }
+            OpCode::AndCD => {
+                self.and(REG_C, REG_D);
+            }
+            OpCode::AndDB => {
+                self.and(REG_D, REG_B);
+            }
+            OpCode::AndDC => {
+                self.and(REG_D, REG_C);
+            }
+            OpCode::AndDD => {
+                self.and(REG_D, REG_D);
+            }
+
+            OpCode::XorAA => {
+                self.xor(REG_A, REG_A);
+            }
+            OpCode::XorBA => {
+                self.xor(REG_B, REG_A);
+            }
+            OpCode::XorCA => {
+                self.xor(REG_C, REG_A);
+            }
+            OpCode::XorDA => {
+                self.xor(REG_D, REG_A);
+            }
+            OpCode::XorBB => {
+                self.xor(REG_B, REG_B);
+            }
+            OpCode::XorBC => {
+                self.xor(REG_B, REG_C);
+            }
+            OpCode::XorBD => {
+                self.xor(REG_B, REG_D);
+            }
+            OpCode::XorCB => {
+                self.xor(REG_C, REG_B);
+            }
+            OpCode::XorCC => {
+                self.xor(REG_C, REG_C);
+            }
+            OpCode::XorCD => {
+                self.xor(REG_C, REG_D);
+            }
+            OpCode::XorDB => {
+                self.xor(REG_D, REG_B);
+            }
+            OpCode::XorDC => {
+                self.xor(REG_D, REG_C);
+            }
+            OpCode::XorDD => {
+                self.xor(REG_D, REG_D);
+            }
+
+            OpCode::OrAA => {
+                self.or(REG_A, REG_A);
+            }
+            OpCode::OrBA => {
+                self.or(REG_B, REG_A);
+            }
+            OpCode::OrCA => {
+                self.or(REG_C, REG_A);
+            }
+            OpCode::OrDA => {
+                self.or(REG_D, REG_A);
+            }
+            OpCode::OrBB => {
+                self.or(REG_B, REG_B);
+            }
+            OpCode::OrBC => {
+                self.or(REG_B, REG_C);
+            }
+            OpCode::OrBD => {
+                self.or(REG_B, REG_D);
+            }
+            OpCode::OrCB => {
+                self.or(REG_C, REG_B);
+            }
+            OpCode::OrCC => {
+                self.or(REG_C, REG_C);
+            }
+            OpCode::OrCD => {
+                self.or(REG_C, REG_D);
+            }
+            OpCode::OrDB => {
+                self.or(REG_D, REG_B);
+            }
+            OpCode::OrDC => {
+                self.or(REG_D, REG_C);
+            }
+            OpCode::OrDD => {
+                self.or(REG_D, REG_D);
+            }
+
             OpCode::AttemptHalt => {
                 let a = self.peek_reg(REG_A) == 0xFF;
                 let b = self.peek_reg(REG_B) == 0xFF;

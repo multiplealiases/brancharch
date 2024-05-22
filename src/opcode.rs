@@ -30,6 +30,21 @@ pub enum OpCode {
     LessThanC, GreaterThanC, EqualToC,
     LessThanD, GreaterThanD, EqualToD,
 
+    AndAA, AndBA, AndCA, AndDA,
+           AndBB, AndBC, AndBD,
+           AndCB, AndCC, AndCD,
+           AndDB, AndDC, AndDD,
+
+    XorAA, XorBA, XorCA, XorDA,
+           XorBB, XorBC, XorBD,
+           XorCB, XorCC, XorCD,
+           XorDB, XorDC, XorDD,
+
+    OrAA,  OrBA,  OrCA,  OrDA,
+           OrBB,  OrBC,  OrBD,
+           OrCB,  OrCC,  OrCD,
+           OrDB,  OrDC,  OrDD,
+
     Print,
 
     AttemptHalt = 0xFF,
