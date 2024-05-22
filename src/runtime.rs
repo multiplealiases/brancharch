@@ -334,6 +334,40 @@ impl Runtime for Machine {
                 self.or(REG_D, REG_D);
             }
 
+            OpCode::RolA => {
+                let shift = self.fetch_one();
+                self.rotate_left(REG_A, shift)
+            }
+            OpCode::RolB => {
+                let shift = self.fetch_one();
+                self.rotate_left(REG_B, shift)
+            }
+            OpCode::RolC => {
+                let shift = self.fetch_one();
+                self.rotate_left(REG_C, shift)
+            }
+            OpCode::RolD => {
+                let shift = self.fetch_one();
+                self.rotate_left(REG_D, shift)
+            }
+
+            OpCode::RorA => {
+                let shift = self.fetch_one();
+                self.rotate_right(REG_A, shift)
+            }
+            OpCode::RorB => {
+                let shift = self.fetch_one();
+                self.rotate_right(REG_B, shift)
+            }
+            OpCode::RorC => {
+                let shift = self.fetch_one();
+                self.rotate_right(REG_C, shift)
+            }
+            OpCode::RorD => {
+                let shift = self.fetch_one();
+                self.rotate_right(REG_D, shift)
+            }
+
             OpCode::AttemptHalt => {
                 let a = self.peek_reg(REG_A) == 0xFF;
                 let b = self.peek_reg(REG_B) == 0xFF;

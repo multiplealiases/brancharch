@@ -45,6 +45,10 @@ pub enum OpCode {
            OrCB,  OrCC,  OrCD,
            OrDB,  OrDC,  OrDD,
 
+    RolA, RolB, RolC, RolD,
+
+    RorA, RorB, RorC, RorD,
+
     Print,
 
     AttemptHalt = 0xFF,

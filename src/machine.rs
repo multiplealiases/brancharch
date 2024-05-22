@@ -104,6 +104,12 @@ impl Machine {
     pub fn xor(&mut self, acc: usize, rhs: usize) {
         self.regs[acc] ^= self.regs[rhs];
     }
+    pub fn rotate_left(&mut self, reg: usize, shift: u8) {
+        self.regs[reg] = self.regs[reg].rotate_left(shift as u32)
+    }
+    pub fn rotate_right(&mut self, reg: usize, shift: u8) {
+        self.regs[reg] = self.regs[reg].rotate_right(shift as u32)
+    }
     pub fn flag_set(&mut self) {
         self.flag = true;
     }
