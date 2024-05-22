@@ -133,7 +133,7 @@ impl Machine {
     }
     pub fn print_byte(&self, address: u16) {
         let byte: [u8; 1] = [self.memory[address as usize]];
-        io::stdout().write(&byte);
+        io::stdout().write_all(&byte).expect("Failed to write to stdout");
     }
     pub fn halt(&mut self) {
         self.halt = true;
